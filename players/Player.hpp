@@ -18,6 +18,8 @@ namespace coup{
         virtual void coup(Player p);
         std::string role() const;
         int coins() const;
+
+        std::string getName() const;
     };
 
     
