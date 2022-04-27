@@ -34,8 +34,5 @@ namespace coup{
         }
         
     }
-    void Game::addPlayer(std::string name){
-        // this->_players.resize(this->_players.size()+1);
-        this->_players.push_back(name);
-    }
+
 }

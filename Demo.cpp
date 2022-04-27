@@ -33,7 +33,6 @@ int main() {
 	Contessa contessa{game_1, "Gilad"};
 
 	vector<string> players = game_1.players();
-	// cout<<players.size()<<endl;
 
 	/*
 		prints:
@@ -47,18 +46,18 @@ int main() {
 		cout << name << endl;
 	}
 
-	// // prints Moshe
-	// cout << game_1.turn() << endl;
+	// prints Moshe
+	cout << game_1.turn() << endl;
 
-	// // throws no exceptions
-	// duke.income();
-	// assassin.income();
-	// ambassador.income();
-	// captain.income();
-	// contessa.income();
+	// throws no exceptions
+	duke.income();
+	assassin.income();
+	ambassador.income();
+	captain.income();
+	contessa.income();
 
-	// // throws exception, it is duke's turn now
-	// assassin.income();
+	// throws exception, it is duke's turn now
+	assassin.income();
 
 	// duke.income();
 	// assassin.foreign_aid();
