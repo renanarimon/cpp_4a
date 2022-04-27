@@ -2,20 +2,21 @@
 # include <iostream>
 #include <deque>
 #include <vector>
-#include "Player.hpp"
 namespace coup{
     class Game
         {
-        private:
-            std::deque<Player> player_queue;
-            int size;
+        
+            
         public:
+            std::vector<std::string> _players;
+            size_t _currTurn;
+            size_t _size;
             Game();
             ~Game();
-            void turn() const;
+            std::string turn() const;
             std::vector<std::string> players() const;
             std::string winner() const;
-            void addPlayer(Player p);
+            void addPlayer(std::string name);
         };
 }
 

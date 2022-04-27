@@ -1,25 +1,31 @@
 #include "Game.hpp"
 #include <exception>
 namespace coup{
-    Game::Game(){}
+    Game::Game(){
+        std::vector<std::string> names;
+        this->_players = names;
+        this->_currTurn=0;
+        this->_size = 0;
+
+    }
     Game::~Game(){}
 
     /*Print the name of the player whose turn to play now*/
-    void Game::turn() const{
-        std::cout << this->player_queue.front().getName() << std::endl;
+    std::string Game::turn() const{
+        return this->_players[this->_currTurn];
     }
 
     /*Returns the names of the players currently active in the game*/
     std::vector<std::string> Game::players() const{
-        return {this->player_queue.begin(), this->player_queue.end()};
+        return this->_players;
     }
 
     /*return the winner iff there is only one player left*/
     std::string Game::winner() const{
-        if(this->size == 1){
-            return this->player_queue.front().getName();
+        if(this->_players.size() == 1){
+            return this->_players[0];
         }
-        else if (this->size <1)
+        else if (this->_players.size() <1)
         {
             throw std::out_of_range("game has no players");
         }
@@ -27,5 +33,9 @@ namespace coup{
             throw std::invalid_argument("there is more than 1 player");
         }
         
+    }
+    void Game::addPlayer(std::string name){
+        // this->_players.resize(this->_players.size()+1);
+        this->_players.push_back(name);
     }
 }
