@@ -2,11 +2,14 @@
 # include <iostream>
 #include <deque>
 #include <vector>
+#include "Player.hpp"
 namespace coup{
+    class Player;
     class Game
         {   
         public:  
-            std::vector<std::string> _players;
+            // std::vector<std::string> _players;
+            std::vector<Player*> _players;
             size_t _currTurn;
             size_t _size; 
             Game();

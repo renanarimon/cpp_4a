@@ -51,13 +51,14 @@ int main() {
 
 	// throws no exceptions
 	duke.income();
-	assassin.income();
-	ambassador.income();
-	captain.income();
-	contessa.income();
+	assassin.foreign_aid();
+	// duke.block(assassin);
+	// ambassador.income();
+	// captain.income();
+	// contessa.income();
 
-	// throws exception, it is duke's turn now
-	assassin.income();
+	// // throws exception, it is duke's turn now
+	// assassin.income();
 
 	// duke.income();
 	// assassin.foreign_aid();
