@@ -41,4 +41,14 @@ namespace coup{
         
     }
 
+    template <typename T>
+    static bool contains(std::vector<T> vec, const T & elem)
+    {
+        if(std::find(vec.begin(), vec.end(), elem) != vec.end() )
+        {
+            return true;;
+        }
+        return false;
+    }
+
 }

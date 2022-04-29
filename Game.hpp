@@ -3,6 +3,7 @@
 #include <deque>
 #include <vector>
 #include "Player.hpp"
+#include <algorithm>
 namespace coup{
     class Player;
     class Game
@@ -17,7 +18,8 @@ namespace coup{
             std::string turn() const;
             std::vector<std::string> players() const;
             std::string winner() const;
-
+            template <typename T>
+            static bool contains(std::vector<T> vec, const T & elem);
         };
 }
 
