@@ -16,7 +16,7 @@ namespace coup
         this->_lastAction = Action::block_A;
         this->_onPlayer = this;
     }
-    
+
     /*distructor*/
     Player::~Player() {}
 
@@ -47,8 +47,12 @@ namespace coup
     void Player::coup(Player &p)
     {
         this->startTurn(Action::coup_A);
+        // if(p._lastAction == Action::block_A){
+        //     throw std::logic_error("already blocked");
+        // }
         p.setAlive(false);
         this->_game->_size--;
+        this->setCoins(7, '-');
         this->endTurn(Action::coup_A, p);
     }
 
@@ -58,6 +62,9 @@ namespace coup
     }
     int Player::coins() const
     {
+        if(!this->_alive){
+            throw std::logic_error("this player us out of game");
+        }
         return this->_coins;
     }
     /*'+': increase coins
@@ -81,6 +88,7 @@ namespace coup
     /*heck exceptions before each turn*/
     void Player::startTurn(Action action)
     {
+        std::cout << "in start" <<std::endl;
         if (!this->_alive)
         {
             throw std::logic_error("this player is not alive");
@@ -99,6 +107,7 @@ namespace coup
     /*move turn to next player, save details of this turn*/
     void Player::endTurn(Action action, Player &p)
     {
+        std::cout << "in end\n"; 
         if (this->_game->_currTurn == this->_game->_size - 1)
         {
             this->_game->_currTurn = 0;

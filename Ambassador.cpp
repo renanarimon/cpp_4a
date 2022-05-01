@@ -30,6 +30,9 @@ namespace coup
         {
             p.setLastAction(Action::block_A);
             p.setOnPlayer(p);
+        }else{
+            throw std::logic_error("capitan didn't steal");
         }
+        
     }
 }

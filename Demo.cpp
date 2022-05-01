@@ -58,6 +58,8 @@ int main() {
 	captain.income();
 	contessa.income();
 
+	
+
 	// throws exception, it is duke's turn now
 	try{
 		assassin.income();
@@ -102,6 +104,8 @@ int main() {
 	contessa.foreign_aid();
 
 	duke.tax();
+
+	cout << "duke coins: " << duke.coins() << endl;
 	// no exception, assassin can coup with only 3 coins
 	assassin.coup(duke);
 
