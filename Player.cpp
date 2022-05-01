@@ -3,7 +3,7 @@
 
 namespace coup
 {
-
+    /*constructor*/
     Player::Player(Game &game, std::string name)
     {
         this->_game = &game;
@@ -15,31 +15,43 @@ namespace coup
         this->_game->_size++;
         this->_lastAction = Action::block_A;
         this->_onPlayer = this;
-        this->_onPlayer2 = this;
     }
-
+    
+    /*distructor*/
     Player::~Player() {}
 
+    /*income
+     cost: ---
+     goal: get 1 coin
+     block: NOT allowed*/
     void Player::income()
     {
-        this->myTurn(Action::income_A);
+        this->startTurn(Action::income_A);
         this->_coins++;
         this->endTurn(Action::income_A, *this);
     }
-
+    /*foreign_aid
+    cost: ---
+    goal: get 2 coins
+    block: allowed*/
     void Player::foreign_aid()
     {
-        this->myTurn(Action::foreign_aid_A);
+        this->startTurn(Action::foreign_aid_A);
         this->_coins += 2;
         this->endTurn(Action::foreign_aid_A, *this);
     }
+    /*coup player p from game
+    cost: 7 coins
+    goal: dissmiss player from game
+    block: NOT allowed*/
     void Player::coup(Player &p)
     {
-        this->myTurn(Action::coup_A);
+        this->startTurn(Action::coup_A);
         p.setAlive(false);
         this->_game->_size--;
         this->endTurn(Action::coup_A, p);
     }
+
     std::string Player::role() const
     {
         return this->_role;
@@ -48,7 +60,8 @@ namespace coup
     {
         return this->_coins;
     }
-
+    /*'+': increase coins
+      '-': decrease*/
     void Player::setCoins(int num, char a_l)
     {
         if (a_l == '+')
@@ -65,9 +78,8 @@ namespace coup
         }
     }
 
-    /*check if it's my turn.
-        if true - play*/
-    void Player::myTurn(Action action)
+    /*heck exceptions before each turn*/
+    void Player::startTurn(Action action)
     {
         if (!this->_alive)
         {
@@ -78,13 +90,13 @@ namespace coup
             throw std::logic_error("this is not your'e turn!");
         }
 
-        if(this->coins()>=TEN && action!=Action::coup_A){
+        if (this->coins() >= TEN && action != Action::coup_A)
+        {
             throw std::logic_error("you have at least 10 coins, have to coup!");
         }
-
     }
 
-
+    /*move turn to next player, save details of this turn*/
     void Player::endTurn(Action action, Player &p)
     {
         if (this->_game->_currTurn == this->_game->_size - 1)
@@ -95,7 +107,7 @@ namespace coup
         {
             this->_game->_currTurn++;
         }
-        while (!this->_game->_players[this->_game->_currTurn]->getAlive()) // skip not-alive players
+        while (!this->_game->_players[this->_game->_currTurn]->isAlive()) // skip not-alive players
         {
             this->_game->_currTurn++;
         }

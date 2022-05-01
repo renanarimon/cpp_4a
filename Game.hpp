@@ -1,26 +1,22 @@
-# pragma once
-# include <iostream>
+#pragma once
+#include <iostream>
 #include <deque>
 #include <vector>
 #include "Player.hpp"
 #include <algorithm>
-namespace coup{
+namespace coup
+{
     class Player;
     class Game
-        {   
-        public:  
-            // std::vector<std::string> _players;
-            std::vector<Player*> _players;
-            size_t _currTurn;
-            size_t _size; 
-            Game();
-            ~Game();
-            std::string turn() const;
-            std::vector<std::string> players() const;
-            std::string winner() const;
-            template <typename T>
-            static bool contains(std::vector<T> vec, const T & elem);
-        };
+    {
+    public:
+        std::vector<Player *> _players;           // all players
+        size_t _currTurn;                         // indx of this player turn
+        size_t _size;                             // num of players in game now
+        Game();                                   // constructor
+        ~Game();                                  // distructor
+        std::string turn() const;                 // return name of this turn player
+        std::vector<std::string> players() const; // return names of alive players
+        std::string winner() const;               // return the winner
+    };
 }
-
-

@@ -1,67 +1,83 @@
-# pragma once
+#pragma once
 #include <iostream>
 #include "Game.hpp"
 
-namespace coup{
+namespace coup
+{
     class Game;
     class Player
     {
-    
+
     public:
-        enum Action{income_A, foreign_aid_A, coup_A, block_A, tax_A, transfer_A, steal_A, couped_A};
+        /*Actions allow in the game*/
+        enum Action
+        {
+            income_A,
+            foreign_aid_A,
+            coup_A,
+            block_A,
+            tax_A,
+            transfer_A,
+            steal_A,
+            couped_A
+        };
         static const int SEVEN = 7;
         static const int TEN = 10;
+
     protected:
-        Game* _game;
+        Game *_game;
         std::string _name;
         std::string _role;
         int _coins;
-        // bool foreign_this_round;
-        Action _lastAction;
-        Player* _onPlayer;
-        Player* _onPlayer2;
-        bool _alive;
+        Action _lastAction; // last action this player did
+        Player *_onPlayer;  // The player on whom the last action was performed
+        bool _alive;        // true iff player is alive
+
     public:
-        
-        Player(Game &game, std::string name);
-        ~Player();
-        void income();
-        void foreign_aid();
-        virtual void coup(Player &p);
-        std::string role() const;
-        int coins() const;
-        void myTurn(Action action);
-        void endTurn(Action action, Player& p);
+        Player(Game &game, std::string name);   // constuctor
+        ~Player();                              // distructor
+        void income();                          // +1 coin
+        void foreign_aid();                     // +2 coins -> can be blocked
+        virtual void coup(Player &p);           // coup player p from game -> -7 coins
+        std::string role() const;               // this player role
+        int coins() const;                      // num of coins
+        void startTurn(Action action);             // check exceptions before each turn
+        void endTurn(Action action, Player &p); // move turn to next player, save details of this turn
         void setCoins(int num, char a_l);
 
-        std::string getName(){
+
+        //get & set
+        std::string getName()
+        {
             return this->_name;
         }
-        Action getLastAction(){
+        Action getLastAction()
+        {
             return this->_lastAction;
         }
-        void setLastAction(Action newAction){
+        void setLastAction(Action newAction)
+        {
             this->_lastAction = newAction;
         }
-        bool isAlive() const{
-            return _alive;
-        }
-        void setOnPlayer(Player& p){
+
+        void setOnPlayer(Player &p)
+        {
             this->_onPlayer = &p;
         }
 
-        void setAlive(bool alive){
+        void setAlive(bool alive)
+        {
             this->_alive = alive;
         }
 
-        bool getAlive(){
+        bool isAlive()
+        {
             return this->_alive;
         }
-        Player* getOnPlayer(){
+        Player *getOnPlayer()
+        {
             return this->_onPlayer;
         }
- 
     };
 
-    
 }

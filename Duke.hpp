@@ -4,12 +4,10 @@
 namespace coup{
     class Duke : public Player
     {
-    private:
-        /* data */
     public:
         Duke(Game &game, std::string name);
         ~Duke();
-        void tax();
+        void tax(); // +3 coins
         static void block(Player &p); //block foreign_aid
     };
 }

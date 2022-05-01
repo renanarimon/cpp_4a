@@ -8,20 +8,22 @@ namespace coup
     }
     Ambassador::~Ambassador() {}
 
-    /*transfer 1 coin from p1 to p2*/
+    /*transfer
+    cost: ---
+    goal: transfer 1 coin from p1 to p2
+    block: NOT allowed*/
     void Ambassador::transfer(Player &from, Player &to)
     {
-        this->myTurn(Action::transfer_A);
-        if (from.getAlive() && to.getAlive() && from.coins() > 0)
+        this->startTurn(Action::transfer_A);
+        if (from.isAlive() && to.isAlive() && from.coins() > 0)
         {
             from.setCoins(1, '-');
             to.setCoins(1, '+');
-            this->_onPlayer2 = &to;
             this->endTurn(Action::transfer_A, from);
         }
     }
-    
-    // block steal
+
+    /*block captain from steal*/
     void Ambassador::block(Player &p)
     { 
         if (p.role() == "Captain" && p.getLastAction() == Action::steal_A)

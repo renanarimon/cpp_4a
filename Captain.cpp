@@ -8,10 +8,13 @@ namespace coup{
 
     Captain::~Captain(){}
 
-    /*steal 2 coins*/
+    /*stael
+    cost: ---
+    goal: stael 2 coins from another player
+    block: allowed by Ambassador OR capitan*/
     void Captain::steal(Player &p){
-        this->myTurn(Action::steal_A);
-        if(p.getAlive() && p.coins()>=2){
+        this->startTurn(Action::steal_A);
+        if(p.isAlive() && p.coins()>=2){
             p.setCoins(2, '-');
             this->setCoins(2, '+');
         }
