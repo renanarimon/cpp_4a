@@ -7,7 +7,7 @@ namespace coup{
     class Player
     {
     public:
-        enum Action{income_A, foreign_aid_A, coup_A, block_A, tax_A, transfer_A};
+        enum Action{income_A, foreign_aid_A, coup_A, block_A, tax_A, transfer_A, steal_A, couped_A};
     protected:
         Game* _game;
         std::string _name;
@@ -15,6 +15,8 @@ namespace coup{
         int _coins;
         // bool foreign_this_round;
         Action _lastAction;
+        Player* _onPlayer;
+        Player* _onPlayer2;
         bool _alive;
     public:
         
@@ -26,7 +28,7 @@ namespace coup{
         std::string role() const;
         int coins() const;
         void myTurn();
-        void endTurn(Action action);
+        void endTurn(Action action, Player& p);
         void setCoins(int num, char a_l);
 
         std::string getName(){
@@ -40,6 +42,13 @@ namespace coup{
         }
         bool isAlive() const{
             return _alive;
+        }
+        void setOnPlayer(Player& p){
+            this->_onPlayer = &p;
+        }
+
+        void setAlive(bool alive){
+            this->_alive = alive;
         }
  
     };

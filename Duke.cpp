@@ -11,7 +11,7 @@ namespace coup{
     void Duke::tax(){
         this->myTurn();
         this->_coins += 3;
-        this->endTurn(Action::tax_A);
+        this->endTurn(Action::tax_A, *this);
     }
     /*block foreign_aid*/
     void Duke::block(Player &p){ 

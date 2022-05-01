@@ -9,7 +9,7 @@ namespace coup{
 
     /*block Assassin from coup*/
     void Contessa::block(Player &p){
-        if(p.role() == "Assassin" && p.getLastAction() == Action::block_A){
+        if(p.role() == "Assassin" && p.getLastAction() == Action::coup_A){
             p.setLastAction(Action::block_A);
         }else{
             throw std::logic_error("can block only Assassin that couped last turn");

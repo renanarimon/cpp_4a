@@ -11,12 +11,12 @@ namespace coup{
 
     void Assassin::coup(Player &p){
         if(this->coins()>=7 && p.isAlive()){
-            this->_alive = false;
-            this->endTurn(Action::coup_A);
+            p.setAlive(false);
+            this->endTurn(Action::coup_A, *this);
         }
         else if(this->coins() >= 3 && p.isAlive()){
-            p.setLastAction(Action::coup_A); // can be blocked
-            this->endTurn(Action::coup_A);
+            p.setLastAction(Action::couped_A); // can be blocked
+            this->endTurn(Action::coup_A, p);
         }else{
             throw std::logic_error("can't coup with less than 3 coins");
         }

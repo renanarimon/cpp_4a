@@ -50,19 +50,13 @@ int main() {
 
 	// prints Moshe
 	cout << game_1.turn() << endl;
-	cout << "*************************" << endl;
+
 	// throws no exceptions
 	duke.income();
-	cout << game_1.turn() << endl;
 	assassin.income();
-	cout << game_1.turn() << endl;
 	ambassador.income();
-	cout << game_1.turn() << endl;
 	captain.income();
-	cout << game_1.turn() << endl;
 	contessa.income();
-	cout << game_1.turn() << endl;
-
 
 	// throws exception, it is duke's turn now
 	try{
@@ -95,7 +89,7 @@ int main() {
 	}
 
 	duke.block(assassin);
-	cout << "ass coins: "<< assassin.coins() << endl; // prints 1
+	cout << assassin.coins() << endl; // prints 1
 
 	ambassador.transfer(duke, assassin); //transfers 1 coin from duke to assassin
 	captain.foreign_aid();

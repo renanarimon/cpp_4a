@@ -9,13 +9,14 @@ namespace coup{
 
     /*transfer 1 coin from p1 to p2*/
     void Ambassador::transfer(Player &from, Player &to){
-        if(from.coins()>=1){
-            from.setCoins(1, '-');
-            to.setCoins(1, '+');
-            this->endTurn(Action::transfer_A);
-        }else{
-            throw std::range_error("can't take coin from player with no coins");
-        }
+        this->_onPlayer2 = &to;
+        this->endTurn(Action::transfer_A, from);
+        
     }
-    void Ambassador::block(Player &p){} // block steal
+    void Ambassador::block(Player &p){ // block steal
+        if(p.role().compare("Captain") == 0 && p.getLastAction() == Action::steal_A){
+            p.setLastAction(Action::block_A);
+            p.setOnPlayer(p);
+        }
+    } 
 }
