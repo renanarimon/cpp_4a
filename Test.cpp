@@ -143,6 +143,7 @@ TEST_CASE("GAME_DEMO"){
     CHECK_EQ(players.size(), 2);
     
 
+    std::cout << game.role() << std::endl;
     // /*2 players*/
     // CHECK_THROWS_MESSAGE(game.winner(), "2 players left");
     // CHECK_THROWS_MESSAGE(ambassador.transfer(captain, ambassador), "can't transfer to itself");
