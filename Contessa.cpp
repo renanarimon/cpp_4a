@@ -9,10 +9,15 @@ namespace coup{
 
     /*block Assassin from coup*/
     void Contessa::block(Player &p){
+        std::cout << "in block\n"; 
+        std::cout << this->role() << std::endl; 
         if(p.role() == "Assassin" && p.getLastAction() == Action::coup_A){
+            std::cout << "in if\n"; 
+            this->_game->_size++;
             p.getOnPlayer()->setAlive(true);
-            p.setLastAction(Action::block_A);
+            p.setLastAction(Action::block_A); 
         }else{
+            std::cout << "in else\n"; 
             throw std::logic_error("can block only Assassin that couped last turn");
         }
     } 

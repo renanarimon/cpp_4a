@@ -10,6 +10,7 @@ namespace coup{
 
     /*steal 2 coins*/
     void Captain::steal(Player &p){
+        this->myTurn(Action::steal_A);
         if(p.getAlive() && p.coins()>=2){
             p.setCoins(2, '-');
             this->setCoins(2, '+');

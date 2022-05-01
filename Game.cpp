@@ -14,11 +14,17 @@ namespace coup{
 
     /*Print the name of the player whose turn to play now*/
     std::string Game::turn() const{
+        if(this->_size <=0){
+            throw std::out_of_range("no players in game");
+        }
         return this->_players[this->_currTurn]->getName();
     }
 
     /*Returns the names of the players currently active in the game*/
     std::vector<std::string> Game::players() const{
+        if(this->_size <=0){
+            throw std::out_of_range("no players in game");
+        }
         std::vector<std::string> names;
         for(Player* p : this->_players){
             if(p->getAlive()){
@@ -30,14 +36,17 @@ namespace coup{
 
     /*return the winner iff there is only one player left*/
     std::string Game::winner() const{
+        if(this->_size <=0){
+            throw std::out_of_range("there is no winner");
+        }
         int counter =0;
         Player* win = this->_players[0];
 
-        for (size_t i = 0; i < this->_players.size(); i++)
+        for (Player* p : this->_players)
         {
-            if(this->_players[i]->getAlive()){
+            if(p->getAlive()){
                 counter++;
-                win = this->_players[i];
+                win = p;
             }
         }
         if(counter > 1 || counter <1){
@@ -47,14 +56,5 @@ namespace coup{
         
     }
 
-    template <typename T>
-    static bool contains(std::vector<T> vec, const T & elem)
-    {
-        if(std::find(vec.begin(), vec.end(), elem) != vec.end() )
-        {
-            return true;;
-        }
-        return false;
-    }
 
 }

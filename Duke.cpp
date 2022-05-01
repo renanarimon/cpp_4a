@@ -9,13 +9,13 @@ namespace coup{
     Duke::~Duke(){}
 
     void Duke::tax(){
-        this->myTurn();
+        this->myTurn(Action::tax_A);
         this->_coins += 3;
         this->endTurn(Action::tax_A, *this);
     }
     /*block foreign_aid*/
     void Duke::block(Player &p){ 
-        if(p.getLastAction() == Action::foreign_aid_A){
+        if(p.getAlive() && p.getLastAction() == Action::foreign_aid_A){
             if(p.coins() >= 2){
                 p.setCoins(2, '-');
             }
@@ -24,6 +24,8 @@ namespace coup{
                 p.setCoins(1, '-');
             }
             p.setLastAction(Action::block_A);
+        }else{
+            throw std::logic_error("can block only foreign_aid");
         }
     } 
 

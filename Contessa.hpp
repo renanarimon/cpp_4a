@@ -8,7 +8,7 @@ namespace coup{
     public:
         Contessa(Game &game, std::string name);
         ~Contessa();
-        static void block(Player &p); //block coup
+        void block(Player &p); //block coup
     };
 }
 

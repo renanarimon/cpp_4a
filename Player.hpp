@@ -10,6 +10,7 @@ namespace coup{
     public:
         enum Action{income_A, foreign_aid_A, coup_A, block_A, tax_A, transfer_A, steal_A, couped_A};
         static const int SEVEN = 7;
+        static const int TEN = 10;
     protected:
         Game* _game;
         std::string _name;
@@ -29,7 +30,7 @@ namespace coup{
         virtual void coup(Player &p);
         std::string role() const;
         int coins() const;
-        void myTurn();
+        void myTurn(Action action);
         void endTurn(Action action, Player& p);
         void setCoins(int num, char a_l);
 
