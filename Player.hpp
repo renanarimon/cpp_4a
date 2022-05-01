@@ -6,8 +6,10 @@ namespace coup{
     class Game;
     class Player
     {
+    
     public:
         enum Action{income_A, foreign_aid_A, coup_A, block_A, tax_A, transfer_A, steal_A, couped_A};
+        static const int SEVEN = 7;
     protected:
         Game* _game;
         std::string _name;
@@ -49,6 +51,13 @@ namespace coup{
 
         void setAlive(bool alive){
             this->_alive = alive;
+        }
+
+        bool getAlive(){
+            return this->_alive;
+        }
+        Player* getOnPlayer(){
+            return this->_onPlayer;
         }
  
     };

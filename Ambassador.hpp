@@ -10,7 +10,7 @@ namespace coup{
         Ambassador(Game &game, std::string name);
         ~Ambassador();
         void transfer(Player &from, Player &to);
-        void block(Player &p); // block steal
+        static void block(Player &p); // block steal
     };
 
     

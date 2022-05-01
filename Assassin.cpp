@@ -3,18 +3,21 @@
 
 namespace coup{
     Assassin::Assassin(Game &game, std::string name) :
-    Player(game, name) {
+    Player(game, std::move(name)) {
         this->_role = "Assassin";
     }
 
     Assassin::~Assassin(){}
 
     void Assassin::coup(Player &p){
-        if(this->coins()>=7 && p.isAlive()){
+        if(this->coins()>= SEVEN && p.isAlive()){
+            this->setCoins(SEVEN, '-');
             p.setAlive(false);
             this->endTurn(Action::coup_A, *this);
         }
         else if(this->coins() >= 3 && p.isAlive()){
+            this->setCoins(3, '-');
+            p.setAlive(false);
             p.setLastAction(Action::couped_A); // can be blocked
             this->endTurn(Action::coup_A, p);
         }else{

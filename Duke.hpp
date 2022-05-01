@@ -10,6 +10,6 @@ namespace coup{
         Duke(Game &game, std::string name);
         ~Duke();
         void tax();
-        void block(Player &p); //block foreign_aid
+        static void block(Player &p); //block foreign_aid
     };
 }

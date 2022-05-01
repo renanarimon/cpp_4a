@@ -21,23 +21,29 @@ namespace coup{
     std::vector<std::string> Game::players() const{
         std::vector<std::string> names;
         for(Player* p : this->_players){
-            names.push_back(p->getName());
+            if(p->getAlive()){
+                names.push_back(p->getName());
+            }
         }
         return names;
     }
 
     /*return the winner iff there is only one player left*/
     std::string Game::winner() const{
-        if(this->_players.size() == 1){
-            return this->_players[0]->getName();
-        }
-        else if (this->_players.size() <1)
+        int counter =0;
+        Player* win = this->_players[0];
+
+        for (size_t i = 0; i < this->_players.size(); i++)
         {
-            throw std::out_of_range("game has no players");
+            if(this->_players[i]->getAlive()){
+                counter++;
+                win = this->_players[i];
+            }
         }
-        else{
-            throw std::invalid_argument("there is more than 1 player");
+        if(counter > 1 || counter <1){
+            throw std::out_of_range("there is no winner");
         }
+        return win->getName();
         
     }
 
