@@ -106,6 +106,7 @@ TEST_CASE("GAME_DEMO"){
     CHECK_NOTHROW(contessa.foreign_aid()); //+2
     
     
+    
     /*check coins & players*/
     CHECK_EQ(duke.coins(), 6);
     CHECK_EQ(ambassador.coins(), 8); 
@@ -113,7 +114,7 @@ TEST_CASE("GAME_DEMO"){
     CHECK_EQ(contessa.coins(), 11);
     CHECK_EQ(captain.coins(), 10);
     
-
+    
     /*move with 10 coins*/
     CHECK_NOTHROW(duke.block(contessa));
     CHECK_NOTHROW(duke.income()); //+1 
@@ -122,9 +123,8 @@ TEST_CASE("GAME_DEMO"){
     CHECK_THROWS_MESSAGE(captain.income(), "have 10 coins, must coup");
     CHECK_THROWS_MESSAGE(contessa.income(), "not your turn");
     CHECK_NOTHROW(captain.coup(assassin)); //-7
-    // CHECK_NOTHROW_MESSAGE(contessa.income(), "have 9 coins"); //+1
+    CHECK_NOTHROW_MESSAGE(contessa.income(), "have 9 coins"); //+1
     CHECK_NOTHROW(duke.coup(contessa)); //-7
-    // CHECK_THROWS_MESSAGE(ambassador.coup(contessa), "already couped");
     CHECK_NOTHROW(ambassador.coup(duke)); //-7
     CHECK_THROWS_MESSAGE(assassin.income(), "not in game anymore");
     
@@ -143,29 +143,27 @@ TEST_CASE("GAME_DEMO"){
     CHECK_EQ(players.size(), 2);
     
 
-    std::cout << game.role() << std::endl;
-    // /*2 players*/
-    // CHECK_THROWS_MESSAGE(game.winner(), "2 players left");
-    // CHECK_THROWS_MESSAGE(ambassador.transfer(captain, ambassador), "can't transfer to itself");
-    // CHECK_NOTHROW(captain.foreign_aid()); //+1
-    // CHECK_NOTHROW(ambassador.income()); //+1
-    // CHECK_NOTHROW(captain.steal(ambassador)); // +2, -2
-    // CHECK_NOTHROW(ambassador.income()); //+1
-    // CHECK_NOTHROW(captain.steal(ambassador)); // +1, -1
-    // CHECK_NOTHROW(ambassador.income()); //+1
+    /*2 players*/
+    CHECK_THROWS_MESSAGE(game.winner(), "2 players left");
+    CHECK_NOTHROW(captain.foreign_aid()); //+2
+    CHECK_NOTHROW(ambassador.income()); //+1
+    CHECK_NOTHROW(captain.steal(ambassador)); // +2, -2
+    CHECK_NOTHROW(ambassador.income()); //+1
+    CHECK_NOTHROW(captain.steal(ambassador)); // +1, -1
+    CHECK_NOTHROW(ambassador.income()); //+1
     
 
-    // /*check coins & players*/
-    // CHECK_EQ(ambassador.coins(), 1); 
-    // CHECK_EQ(captain.coins(), 7);
+    /*check coins & players*/
+    CHECK_EQ(ambassador.coins(), 1); 
+    CHECK_EQ(captain.coins(), 9);
     
 
-    // /*end game*/
-    // CHECK_NOTHROW(captain.coup(ambassador)); // -7
-    // CHECK_EQ(game.winner(), "renana");
-    // CHECK_EQ(game._size, 1);
-    // std::vector<std::string> players1 = game.players();
-    // CHECK_EQ(players1[0], "renana");
+    /*end game*/
+    CHECK_NOTHROW(captain.coup(ambassador)); // -7
+    CHECK_EQ(game.winner(), "renana");
+    CHECK_EQ(game._size, 1);
+    std::vector<std::string> players1 = game.players();
+    CHECK_EQ(players1[0], "renana");
     
 
 

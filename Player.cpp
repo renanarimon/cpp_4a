@@ -37,7 +37,7 @@ namespace coup
     void Player::foreign_aid()
     {
         this->startTurn(Action::foreign_aid_A);
-        this->_coins += 2;
+        this->setCoins(2, '+');
         this->endTurn(Action::foreign_aid_A, *this);
     }
     /*coup player p from game
@@ -47,12 +47,9 @@ namespace coup
     void Player::coup(Player &p)
     {
         this->startTurn(Action::coup_A);
-        // if(p._lastAction == Action::block_A){
-        //     throw std::logic_error("already blocked");
-        // }
         p.setAlive(false);
         this->_game->_size--;
-        this->setCoins(7, '-');
+        this->setCoins(SEVEN, '-');
         this->endTurn(Action::coup_A, p);
     }
 
@@ -62,7 +59,8 @@ namespace coup
     }
     int Player::coins() const
     {
-        if(!this->_alive){
+        if (!this->_alive)
+        {
             throw std::logic_error("this player us out of game");
         }
         return this->_coins;
@@ -85,10 +83,10 @@ namespace coup
         }
     }
 
-    /*heck exceptions before each turn*/
+    /*check exceptions before each turn*/
     void Player::startTurn(Action action)
     {
-        std::cout << "in start" <<std::endl;
+
         if (!this->_alive)
         {
             throw std::logic_error("this player is not alive");
@@ -107,9 +105,9 @@ namespace coup
     /*move turn to next player, save details of this turn*/
     void Player::endTurn(Action action, Player &p)
     {
-        std::cout << "in end\n"; 
-        if (this->_game->_currTurn == this->_game->_size - 1)
+        if (this->_game->_currTurn == this->_game->_players.size() - 1)
         {
+
             this->_game->_currTurn = 0;
         }
         else
@@ -118,7 +116,14 @@ namespace coup
         }
         while (!this->_game->_players[this->_game->_currTurn]->isAlive()) // skip not-alive players
         {
-            this->_game->_currTurn++;
+            if (this->_game->_currTurn == this->_game->_players.size() - 1)
+            {
+                this->_game->_currTurn = 0;
+            }
+            else
+            {
+                this->_game->_currTurn++;
+            }
         }
         this->setLastAction(action);
         this->setOnPlayer(p);
