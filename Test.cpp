@@ -85,7 +85,6 @@ TEST_CASE("GAME_DEMO"){
     CHECK_EQ(assassin.coins(), 1);
     CHECK_EQ(contessa.coins(), 5);
     CHECK_EQ(captain.coins(), 4);
-    CHECK_THROWS_MESSAGE(captain2.coins(),"capitan2 is out of game");
     CHECK_EQ(game._size, 5);
 
 
@@ -130,9 +129,6 @@ TEST_CASE("GAME_DEMO"){
     
 
     /*check coins & players*/
-    CHECK_THROWS_MESSAGE(duke.coins(), "not in game anymore");
-    CHECK_THROWS_MESSAGE(assassin.coins(), "not in game anymore");
-    CHECK_THROWS_MESSAGE(contessa.coins(), "not in game anymore");
     CHECK_EQ(ambassador.coins(), 2); 
     CHECK_EQ(captain.coins(), 3);
     CHECK_EQ(game._size, 2);
@@ -165,16 +161,70 @@ TEST_CASE("GAME_DEMO"){
     std::vector<std::string> players1 = game.players();
     CHECK_EQ(players1[0], "renana");
     
+}
 
-
-
-
-
-
-
-
-    
-
-
-    
+TEST_CASE("Bad Cases")
+{
+    SUBCASE("TOO-MUCH PLAYERS")
+    {
+        Game game_1{};
+        Duke duke(game_1, "Moshe");
+	    Assassin assassin{game_1, "Yossi"};
+	    Ambassador ambassador{game_1, "Meirav"};
+	    Captain captain{game_1, "Reut"};
+	    Contessa contessa{game_1, "Gilad"};
+        Duke duke2{game_1,"Gabi"};
+        for(int i=0;i<10;i++)
+        {
+           switch(i%5){
+               case 0: CHECK_THROWS(Duke duke3(game_1,"Fail")); break;
+               case 1: CHECK_THROWS(Assassin assassin1(game_1,"Fail")); break;
+               case 2: CHECK_THROWS(Ambassador ambassador1(game_1,"Fail")); break;
+               case 3: CHECK_THROWS(Captain captain1(game_1, "Fail")); break;
+               case 4: CHECK_THROWS(Contessa contessa1(game_1, "Fail")); break;
+           }
+        }
+    }
+    SUBCASE("TOO-FEW PLAYERS")
+    {
+        Game game_1{};
+        Duke duke(game_1, "Moshe");
+        for(int i=0;i<10;i++)
+        {
+            CHECK_THROWS(duke.income());
+            CHECK_THROWS(duke.foreign_aid());
+        }
+    }
+    SUBCASE("NOT PLAYERS TURN")
+    {
+        Game game_1{};
+        Duke duke(game_1, "Moshe");
+	    Assassin assassin{game_1, "Yossi"};
+	    Ambassador ambassador{game_1, "Meirav"};
+	    Captain captain{game_1, "Reut"};
+	    Contessa contessa{game_1, "Gilad"};
+        CHECK_THROWS(assassin.foreign_aid());
+        CHECK_THROWS(ambassador.foreign_aid());
+        CHECK_THROWS(captain.steal(duke));
+        duke.income();
+        CHECK_THROWS(contessa.foreign_aid());
+    }
+    SUBCASE("ILLEGAL ACTION")
+    {
+        Game game_1{};
+        Duke duke(game_1, "Moshe");
+	    Assassin assassin{game_1, "Yossi"};
+	    Ambassador ambassador{game_1, "Meirav"};
+	    Captain captain{game_1, "Reut"};
+	    Contessa contessa{game_1, "Gilad"};
+        CHECK_THROWS(duke.coup(assassin));
+        duke.income();
+        assassin.foreign_aid();
+	ambassador.income();
+        CHECK_THROWS(assassin.coup(duke));
+        CHECK_THROWS(captain.block(duke));
+        captain.steal(duke);
+        CHECK_THROWS(contessa.block(assassin));
+        contessa.income();
+    }
 }
