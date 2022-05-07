@@ -15,14 +15,18 @@ namespace coup
             income_A,
             foreign_aid_A,
             coup_A,
+            coup3_A,
             block_A,
             tax_A,
             transfer_A,
-            steal_A,
+            steal2_A,
+            steal1_A,
+            steal0_A,
             couped_A
         };
         static const int SEVEN = 7;
         static const int TEN = 10;
+        static const int SIX = 6;
 
     protected:
         Game *_game;

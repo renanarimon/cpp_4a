@@ -11,7 +11,11 @@ namespace coup
     /*goal: block Assassin from coup -> return couped player to game*/
     void Contessa::block(Player &p)
     {
-        if (p.role() == "Assassin" && p.getLastAction() == Action::coup_A)
+        if(!p.isAlive() || !this->isAlive()){
+            throw std::logic_error("player p is not alive");
+        }
+        
+        if (p.role() == "Assassin" && p.getLastAction() == Action::coup3_A)
         {
             this->_game->_size++; 
             p.getOnPlayer()->setAlive(true); // return couped player to game

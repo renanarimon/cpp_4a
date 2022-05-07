@@ -14,25 +14,47 @@ namespace coup
     block: NOT allowed*/
     void Ambassador::transfer(Player &from, Player &to)
     {
+        if (!from.isAlive() || !to.isAlive())
+        {
+            throw std::logic_error("player from/to is not alive");
+        }
         this->startTurn(Action::transfer_A);
-        if (from.isAlive() && to.isAlive() && from.coins() > 0)
+        if (from.coins() > 0)
         {
             from.setCoins(1, '-');
             to.setCoins(1, '+');
             this->endTurn(Action::transfer_A, from);
         }
+        else
+        {
+            throw std::logic_error("not enought coins to steal");
+        }
     }
 
     /*block captain from steal*/
     void Ambassador::block(Player &p)
-    { 
-        if (p.role() == "Captain" && p.getLastAction() == Action::steal_A)
+    {
+        if (!p.isAlive() || !this->isAlive())
         {
-            p.setLastAction(Action::block_A);
-            p.setOnPlayer(p);
-        }else{
-            throw std::logic_error("capitan didn't steal");
+            throw std::logic_error("player p is not alive");
         }
-        
+        if (p.role() != "Captain")
+        {
+            throw std::logic_error("can block only Captain");
+        }
+        if (p.getLastAction() == Action::steal1_A)
+        {
+            p.getOnPlayer()->setCoins(1, '+');
+            p.setCoins(1, '-');
+        }
+        else if (p.getLastAction() == Action::steal2_A)
+        {
+            p.getOnPlayer()->setCoins(2, '+');
+            p.setCoins(2, '-');
+        }
+        else if(p.getLastAction() != Action::steal2_A){
+            throw std::logic_error("captain didn't steal");
+        }
     }
+
 }

@@ -6,6 +6,12 @@ namespace coup
     /*constructor*/
     Player::Player(Game &game, std::string name)
     {
+        if(game._size >0 && game.players().size() >= SIX){
+            throw std::logic_error("this game is full");
+        }
+        if(game._started){
+            throw std::logic_error("game has started!");
+        }
         this->_game = &game;
         this->_name = std::move(name);
         this->_role = "player";
@@ -47,6 +53,12 @@ namespace coup
     void Player::coup(Player &p)
     {
         this->startTurn(Action::coup_A);
+        if(this->coins() < SEVEN){
+            throw std::logic_error(this->getName()+" do not have 7 coins to coup");
+        }
+        if(!p.isAlive()){
+            throw std::logic_error("player p is not alive");
+        }
         p.setAlive(false);
         this->_game->_size--;
         this->setCoins(SEVEN, '-');
@@ -59,10 +71,10 @@ namespace coup
     }
     int Player::coins() const
     {
-        if (!this->_alive)
-        {
-            throw std::logic_error("this player us out of game");
-        }
+        // if (!this->_alive)
+        // {
+        //     throw std::logic_error("this player is out of game");
+        // }
         return this->_coins;
     }
     /*'+': increase coins
@@ -86,11 +98,11 @@ namespace coup
     /*check exceptions before each turn*/
     void Player::startTurn(Action action)
     {
-
         if (!this->_alive)
         {
             throw std::logic_error("this player is not alive");
         }
+
         if (this->_game->turn() != this->_name)
         {
             throw std::logic_error("this is not your'e turn!");
@@ -100,6 +112,10 @@ namespace coup
         {
             throw std::logic_error("you have at least 10 coins, have to coup!");
         }
+        if(this->_game->players().size() < 2 || this->_game->players().size() >SIX){
+            throw std::logic_error("game must consist 2-6 players");
+        }
+        this->_game->_started = true;
     }
 
     /*move turn to next player, save details of this turn*/

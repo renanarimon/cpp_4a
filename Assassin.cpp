@@ -16,6 +16,9 @@ namespace coup
     block: allowed only for coup by 3 coins*/
     void Assassin::coup(Player &p)
     {
+        if(!p.isAlive()){
+            throw std::logic_error("player p is not alive");
+        }
         this->startTurn(Action::coup_A);
         if (this->coins() >= SEVEN && p.isAlive()) // 7 coins -> coup without block
         {
@@ -30,7 +33,7 @@ namespace coup
             p.setAlive(false);
             p.setLastAction(Action::couped_A);
             this->_game->_size--;
-            this->endTurn(Action::coup_A, p);
+            this->endTurn(Action::coup3_A, p);
         }
         else
         {

@@ -13,6 +13,7 @@ namespace coup
         std::vector<Player *> _players;           // all players
         size_t _currTurn;                         // indx of this player turn
         size_t _size;                             // num of players in game now
+        bool _started;
         Game();                                   // constructor
         ~Game();                                  // distructor
         std::string turn() const;                 // return name of this turn player

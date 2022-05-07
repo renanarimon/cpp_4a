@@ -10,6 +10,7 @@ namespace coup
         this->_players = p;
         this->_currTurn = 0;
         this->_size = 0;
+        this->_started = false;
     }
 
     /*distructor*/
@@ -46,7 +47,7 @@ namespace coup
     /*return the winner iff there is only one player left*/
     std::string Game::winner() const
     {
-        if (this->_size == 1)
+        if (this->_started && this->_size == 1)
         {
             for (Player *p : this->_players)
             {
